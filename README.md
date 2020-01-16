@@ -16,7 +16,7 @@ your pull requests my way 😄
 
 ## Generation 1 _(early 2006)_
 
-![Screenshot of Vera generation 1](Generation 1/veraCLI.gif)
+![Screenshot of Vera generation 1](./Generation 1/veraCLI.gif)
 
 It's not clear to me who wrote this version. I think it started on the UnitedTI
 forums. It references `Jim's stuff :)` in the comments at some point, that's
@@ -63,7 +63,7 @@ API as an abstraction of the hardware for programmers.
 
 ## Generation 3 _(late 2007)_
 
-![Screenshot of Vera generation 3](Generation 3/dist/vera.gif)
+![Screenshot of Vera generation 3](./Generation 3/dist/vera.gif)
 
 Project announced and discussed here:
 http://maxcoderz.org/forum/viewtopic.php?f=3&t=2524
