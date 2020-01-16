@@ -16,7 +16,7 @@ your pull requests my way 😄
 
 ## Generation 1 _(early 2006)_
 
-![Screenshot of Vera generation 1](./Generation 1/veraCLI.gif)
+![Screenshot of Vera generation 1](https://github.com/Timendus/vera/blob/master/Generation%201/veraCLI.gif)
 
 It's not clear to me who wrote this version. I think it started on the UnitedTI
 forums. It references `Jim's stuff :)` in the comments at some point, that's
