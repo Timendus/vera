@@ -1,0 +1,13 @@
+this file contains the names of the people who wrote code for Vera or whose code was stolen for Vera:
+-Jim e ...
+-Timendus ...
+-flopus maximus, Benjamin Moody
+-Jacobbus, Jacob van Ginkel
+-and of course all the other people form UnitedTI
+maybe I forget some add them please
+
+sources where we ripped most of the code from:
+-the API
+-Pong OS
+-wiki ti
+-and more

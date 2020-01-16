@@ -1,0 +1,8 @@
+This is a lay-out directory for the ASMDOC tool v1.3 and above.
+
+It can have two subdirectories: "root" and "all". All files in the "root"
+directory will only be copied to the destination root. All files in the
+"all" directory will be copied to the destination root AND all it's child
+directories.
+
+It's really that simple ;-)

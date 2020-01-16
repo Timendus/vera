@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="veradoc.xsl"?>
+
+<file>
+	<name>src/devices/memory.asm</name>
+	<description>
+		<p>Vera - the calc lover's OS, copyright (C) 2007 The Vera Development Team. </p>
+		<p>This file provides memory allocation routines for handling the RAM. It doesn't handle the Flash memory, in spite of it's name. </p>
+	</description>
+
+	<routine>
+		<name>memory_init</name>
+		<description>
+			<p>Initialize the RAM for use (currently just clears it all, we could consider doing something useful with it ;-)) </p>
+		</description>
+		<author>Tim Franssen (mail@timendus.com)</author>
+	</routine>
+
+	<routine>
+		<name>memory_allocate</name>
+		<description>
+			<p>Allocate a chunk of memory for data storage. The pointer you receive can point to a memory block larger than you requested, but you can not count on that. You also have no guarantee that the memory will be executable (stored before $C000) or that it will be reset to zero (so make sure you initialize it properly before using it). </p>
+			<p>Also, make sure you store the received pointer away carefully, because you'll be needing it to free the memory later. </p>
+		</description>
+		<author>Tim Franssen (mail@timendus.com)</author>
+		<precondition>bc = number of bytes that you want allocated</precondition>
+		<postcondition>c = set if memory was not available</postcondition>
+		<postcondition>hl = pointer to allocated memory if c is reset</postcondition>
+		<postcondition>The accumulator will be destroyed</postcondition>
+	</routine>
+
+	<routine>
+		<name>memory_allocate_exec</name>
+		<description>
+			<p>Allocate a chunk of memory for a RAM application - TODO </p>
+		</description>
+		<author>Tim Franssen (mail@timendus.com)</author>
+		<precondition>hl = number of bytes that you want allocated</precondition>
+		<postcondition>c = set if memory was not available</postcondition>
+		<postcondition>specified number of bytes have been allocated for you at $8000 if c is reset</postcondition>
+	</routine>
+
+	<routine>
+		<name>memory_free</name>
+		<description>
+			<p>Free a chunk of previously allocated memory </p>
+		</description>
+		<author>Tim Franssen (mail@timendus.com)</author>
+		<precondition>hl = pointer to memory to free</precondition>
+		<postcondition>The accumulator will be destroyed</postcondition>
+		<warning>
+			<p>hl needs to point to the beginning of the allocated memory, as you got it from memory_allocate, or $8000 in case of memory_allocate_exec! Give it a wrong pointer and things will go wrong badly! (Or, to use the proper terminology: "the result is undefined" :-P) </p>
+		</warning>
+	</routine>
+
+</file>

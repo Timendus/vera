@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="veradoc.xsl"?>
+
+<file>
+	<name>src/devices/linkport.asm</name>
+	<description>
+		<p>Vera - the calc lover's OS, copyright (C) 2007 The Vera Development Team. </p>
+		<p>This file provides control over the link port </p>
+	</description>
+
+	<routine>
+		<name>linkport.init</name>
+		<description>
+			<p>Reset the link port to initial state on OS boot </p>
+		</description>
+		<author>Tim Franssen (mail@timendus.com)</author>
+		<postcondition>Both link port lines read high</postcondition>
+	</routine>
+
+</file>

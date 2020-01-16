@@ -1,0 +1,38 @@
+The RAM filesystem start at 8000h
+The first 2 bytes show how big the filesystem is
+This is called the RAM Filesystem size and is a 16 bit number
+The RAM Filesystem if located in memory from 8000h to F000h
+so the maximum size is 7000h
+
+After these 2 bytes folow the files that are loaded in the RAM
+If there are files present they will look like this
+A file is always build up of two parts, the metadata and the actual data
+Metadata is data that describes the file/data that folows it
+The actual data comes after the metadata in the memory
+and is whatever it is, can be almost anything (numbers/programs/etc.)
+After the data comes another set of metadata and than again the data or zero's
+
+File metadata:
+2 bytes filesize inclusive metadata
+1 byte filetype
+11 bytes string of folder
+11 bytes string of name
+
+Than follows the file what is whatever it will be
+
+graphical:
+
+A File:
+0	+---------------------------------------+
+	|Filesize (2 bytes)			|
+2	+---------------------------------------+
+	|Filetype (1 byte)			|
+3	+---------------------------------------+
+	|String of Folder Name (11 bytes)	|
+14	+---------------------------------------+
+	|String of File Name (11 bytes)		|
+25	+---------------------------------------+
+	|Data:					|
+	|These bytes are zero when you make a	|
+	|new file				|
+Filesize+---------------------------------------+

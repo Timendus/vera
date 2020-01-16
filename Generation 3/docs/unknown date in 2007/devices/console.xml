@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="veradoc.xsl"?>
+
+<file>
+	<name>src/devices/console.asm</name>
+	<description>
+		<p>Vera - the calc lover's OS, copyright (C) 2007 The Vera Development Team. </p>
+		<p>This file provides control over the display and keyboard in a simple console-like fashion. It depends on keyboard.asm and display.asm as well as font.asm in the data directory. </p>
+		<p>The font is 6 pixels high and of variable width. Outputting to the display is done through a 768 bytes buffer and the display_sprite_or routine. </p>
+	</description>
+
+	<routine>
+		<name>console_init</name>
+		<description>
+			<p>Initialize the keyboard and LCD display and clear the console buffer on OS boot. </p>
+		</description>
+		<author>Tim Franssen (mail@timendus.com)</author>
+		<postcondition>Console routines can safely be called</postcondition>
+		<postcondition>Shows the Vera splash screen if VERBOSE_BOOT is not defined</postcondition>
+	</routine>
+
+	<routine>
+		<name>console_update_buffer_only</name>
+		<description>
+			<p>Tell the console to write all changes to the console buffer, but not update the display. You can also reset CONSOLE_FLAGS bit 0. </p>
+			<p>TODO: testing this </p>
+		</description>
+		<author>Tim Franssen (mail@timendus.com)</author>
+		<example>
+			<line>	call console_update_buffer_only</line>
+			<line>	ld hl,string</line>
+			<line>	call console_printstr</line>
+			<line>	; Text not shown on display</line>
+			<line>	call console_show</line>
+			<line>	; Text shown on display</line>
+		</example>
+	</routine>
+
+	<routine>
+		<name>console_update_both</name>
+		<description>
+			<p>Tell the console to write all changes to the console buffer and the display. You can also set CONSOLE_FLAGS bit 0. This is the default. </p>
+		</description>
+		<author>Tim Franssen (mail@timendus.com)</author>
+		<example>
+			<line>	call console_update_both</line>
+			<line>	ld hl,string</line>
+			<line>	call console_printstr</line>
+			<line>	; Text shown on display</line>
+		</example>
+	</routine>
+
+	<routine>
+		<name>console_show</name>
+		<description>
+			<p>Show the contents of the console buffer on the display </p>
+		</description>
+		<author>Tim Franssen (mail@timendus.com)</author>
+	</routine>
+
+	<routine>
+		<name>console_clear</name>
+		<description>
+			<p>Clear the console (buffer and display) </p>
+		</description>
+		<author>Tim Franssen (mail@timendus.com)</author>
+		<postcondition>The buffer and display are clean</postcondition>
+		<postcondition>The cursor is back to the top left corner</postcondition>
+	</routine>
+
+	<routine>
+		<name>console_newline</name>
+		<description>
+			<p>Go to the next line, scroll screen up if necessary, affected by update flag </p>
+		</description>
+		<author>Tim Franssen (mail@timendus.com)</author>
+	</routine>
+
+	<routine>
+		<name>console_printchar</name>
+		<description>
+			<p>Writes a character to the console buffer, affected by update flag </p>
+		</description>
+		<author>Tim Franssen (mail@timendus.com)</author>
+		<precondition>a = character value to display</precondition>
+		<example>
+			<line>	ld a,'b'</line>
+			<line>	call console_printchar</line>
+			<line>	; Character "b" gets outputted</line>
+		</example>
+	</routine>
+
+	<routine>
+		<name>console_printstr</name>
+		<description>
+			<p>Writes a string to the console, affected by update flag </p>
+		</description>
+		<author>Tim Franssen (mail@timendus.com)</author>
+		<precondition>hl = pointer to string to display</precondition>
+		<example>
+			<line>	ld hl,string</line>
+			<line>	call console_printstr</line>
+			<line>	; String gets outputted</line>
+			<line>	ret</line>
+			<line>string:</line>
+			<line>	.db "Hello world!\n",0</line>
+		</example>
+	</routine>
+
+	<routine>
+		<name>console_printline</name>
+		<description>
+			<p>Write a string to the console folled by a newline, affected by update flag </p>
+		</description>
+		<author>Tim Franssen (mail@timendus.com)</author>
+		<precondition>hl = pointer to string to display</precondition>
+		<example>
+			<line>	ld hl,string</line>
+			<line>	call console_printline</line>
+			<line>	; String gets outputted</line>
+			<line>	ret</line>
+			<line>string:</line>
+			<line>	.db "Hello world!",0</line>
+		</example>
+	</routine>
+
+	<routine>
+		<name>console_printhex</name>
+		<description>
+			<p>Output a value in hex notation to the console, affected by update flag </p>
+		</description>
+		<author>James Montelongo</author>
+		<author>Tim Franssen (mail@timendus.com)</author>
+		<precondition>a = value to be shown</precondition>
+		<example>
+			<line>	ld a,$5A</line>
+			<line>	call console_printhex</line>
+			<line>	; "$5A" will get outputted</line>
+		</example>
+	</routine>
+
+	<routine>
+		<name>console_readchar</name>
+		<description>
+			<p>Get a character of text input from the user </p>
+		</description>
+		<author>Tim Franssen (mail@timendus.com)</author>
+		<postcondition>a = character value</postcondition>
+	</routine>
+
+	<routine>
+		<name>console_readstr</name>
+		<description>
+			<p>Get a string of text input from the user </p>
+		</description>
+		<author>Tim Franssen (mail@timendus.com)</author>
+		<precondition>hl = pointer to new string location</precondition>
+		<precondition>bc = maximum string length (make sure there's room for the null terminator)</precondition>
+		<postcondition>String has been read into memory at hl</postcondition>
+		<postcondition>bc is space left (0 if returned on overflow)</postcondition>
+		<postcondition>a gets destroyed</postcondition>
+	</routine>
+
+	<routine>
+		<name>console_getkey2ascii</name>
+		<description>
+			<p>Convert getkey input from the keyboard driver to an ascii value that corresponds to the pressed key. </p>
+		</description>
+		<author>Tim Franssen (mail@timendus.com)</author>
+		<precondition>a = getkey output</precondition>
+		<postcondition>a = character value</postcondition>
+		<example>
+			<line>	call keyboard_getkey</line>
+			<line>	; Do some debouncing</line>
+			<line>	call console_getkey2ascii</line>
+			<line>	call console_printchar</line>
+			<line>	; Whatever user pressed gets outputted</line>
+		</example>
+	</routine>
+
+</file>

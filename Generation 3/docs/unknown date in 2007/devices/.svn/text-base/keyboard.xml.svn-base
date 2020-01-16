@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="veradoc.xsl"?>
+
+<file>
+	<name>src/devices/keyboard.asm</name>
+	<description>
+		<p>Vera - the calc lover's OS, copyright (C) 2007 The Vera Development Team. </p>
+		<p>This file provides control over the keyboard </p>
+	</description>
+
+	<routine>
+		<name>keyboard_init</name>
+		<description>
+			<p>Reset the keyboard on OS boot </p>
+		</description>
+		<postcondition>Keyboard routines can safely be called</postcondition>
+	</routine>
+
+	<routine>
+		<name>keyboard_getkey</name>
+		<description>
+			<p>Non-blocking getkey function </p>
+		</description>
+		<postcondition>a = key value</postcondition>
+	</routine>
+
+</file>

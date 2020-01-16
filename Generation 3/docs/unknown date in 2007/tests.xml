@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="veradoc.xsl"?>
+
+<file>
+	<name>src/tests.asm</name>
+	<description>
+		<p>Vera - the calc lover's OS, copyright (C) 2007 The Vera Development Team. </p>
+		<p>This file contains tests for many aspects of the OS, define any in main.asm to compile it in. </p>
+		<p>If you want to add a test to this file (if you add to any other part of the OS, you really should be adding one or more tests for your extention), please add a commented " define TEST_YOURTEST" to main.asm and add your test, including required data, to this file surrounded with the proper  ifdef's. </p>
+		<p>Note that the tests are increasing in dependency. The console depends on the font, pretty much every test after that depends on the console, including the keyboard test, which a lot of tests after that depend on, and so on. So if you want to add your test, please do so in the proper place. If you are trying to debug a part of the OS, try to do so using the first test in this file that addresses your particalar bit of code. </p>
+	</description>
+
+	<routine>
+		<name>do_tests</name>
+		<description>
+			<p>This routine will get called after OS boot, before the default program init if TESTING has been  defined in main.asm. </p>
+			<p>It can do all kinds of tests depending on which TEST_SOMETHING you have  defined in main.asm. If you don't define any tests, but do define TESTING, you'll see a message on the console telling you to press a key to continue booting. If one of the tests finishes (most tests will loop indefinately) it'll do the same thing. </p>
+			<p>All other routines in this documentation are not really routines, but tests that you can enable. </p>
+		</description>
+	</routine>
+
+	<routine>
+		<name>TEST_MENUBASED</name>
+		<description>
+			<p>Enabling this define will add a boot up menu to Vera that you can use to run several tests without recompiling the kernel </p>
+		</description>
+	</routine>
+
+	<routine>
+		<name>TEST_FONT</name>
+		<description>
+			<p>Output the ascii table </p>
+		</description>
+	</routine>
+
+	<routine>
+		<name>TEST_CONSOLE</name>
+		<description>
+			<p>Test console output (text and hex) and newlines </p>
+		</description>
+	</routine>
+
+	<routine>
+		<name>TEST_KEYBOARD</name>
+		<description>
+			<p>Test waiting for a keypress and getting keyboard input </p>
+		</description>
+	</routine>
+
+	<routine>
+		<name>TEST_READSTR</name>
+		<description>
+			<p>Test getting string input from the keyboard </p>
+		</description>
+	</routine>
+
+	<routine>
+		<name>TEST_SYSTEM</name>
+		<description>
+			<p>Test sleeping and the random number generator </p>
+		</description>
+	</routine>
+
+	<routine>
+		<name>TEST_SHUTDOWN</name>
+		<description>
+			<p>Test automatically shutting down the calc after 3 seconds </p>
+		</description>
+	</routine>
+
+	<routine>
+		<name>TEST_INTERRUPTHOOKS</name>
+		<description>
+			<p>Test adding custom application interrupt handlers </p>
+			<p>Needlessly commented for publication on Maxcoderz forum </p>
+		</description>
+		<warning>
+			<p>Screws up two bytes at $8000 </p>
+		</warning>
+	</routine>
+
+	<routine>
+		<name>TEST_BREAK</name>
+		<description>
+			<p>Test killing an endless loop from the ON interrupt </p>
+		</description>
+	</routine>
+
+	<routine>
+		<name>TEST_MEMORY</name>
+		<description>
+			<p>Test allocating and freeing memory </p>
+		</description>
+	</routine>
+
+</file>

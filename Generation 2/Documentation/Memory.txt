@@ -1,0 +1,49 @@
+vera basic memory map:
+	
+$0000	+-------------------------------+
+	|bank 1: rom 0			|
+	|				|
+	|OS code & subroutines		|
+	|				|
+	|				|
+$4000	+-------------------------------+
+	|bank 2: something swaped in	|
+	|	 			|
+	|				|
+	|				|
+	|				|
+$8000	+-------------------------------+
+	|bank 3: ram 1			|
+$8000	|RAM Filesystem size (2 bytes)	|
+$8002	|Files (grow down)		|
+	|				|
+	|				|
+$C000	+-------------------------------+
+	|bank 4: ram 0			|
+	|				|
+	|				|
+	|				|
+$F000	|stack (grows up)		|
+	|				|
+$FF72	|MenuPosition (1 byte)		|
+$FF73	|MenuSelected (1 byte)		|
+$FF74	|MenuCharacter (8 bytes)	|
+$FF7D	|input (1 byte) [1]		|
+$FF7E	|HP (1 byte)			|
+$FF7F	|VP (1 byte)			|
+$FF80	|screen (128 bytes)		|
+$FFFF	+-------------------------------+
+
+
+[1]: input
+	bit 7 = 2nd bit		0=2nd not active, 1=2nd active
+	bit 6 = mode bit	0=math input, 1=text input
+	bit 5 = greek bit	0=look at bit 4, 1=greek font selected
+	bit 4 =	bold bit	0=normal font, 1=bold font
+	bit 3 =	alpha bit	0=normal characters, 1=capital characters
+	bit 2 = ?
+	bit 1 = ?
+	bit 0 = ?
+	
+	note: bit 4&5 can be seen together as the charcter type selector 00=normal, 01=bold, 1*=greek
+	if someone has an idea for another charcacter type, as you see there's space for one more

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="veradoc.xsl"?>
+
+<file>
+	<name>src/devices/display.asm</name>
+	<description>
+		<p>Vera - the calc lover's OS, copyright (C) 2007 The Vera Development Team. </p>
+		<p>This file provides control over the display </p>
+	</description>
+
+	<routine>
+		<name>display_init</name>
+		<description>
+			<p>Reset the LCD display on OS boot </p>
+		</description>
+		<author>James Montelongo</author>
+		<author>Tim Franssen (mail@timendus.com)</author>
+		<postcondition>LCD routines can safely be called</postcondition>
+	</routine>
+
+	<routine>
+		<name>display_lcd_delay</name>
+		<description>
+			<p>Wait for the LCD display to become ready </p>
+		</description>
+		<author>WikiTi :)</author>
+	</routine>
+
+	<routine>
+		<name>display_sprite_or</name>
+		<description>
+			<p>OR a sprite with an image buffer </p>
+		</description>
+		<author>Tijl Coosemans (tijl@ulyssis.org)</author>
+		<author>Adapted and commented for Vera by Tim Franssen (mail@timendus.com)</author>
+		<precondition>hl = pointer to image buffer</precondition>
+		<precondition>ix = pointer to sprite data</precondition>
+		<precondition>a = x coordinate</precondition>
+		<precondition>e = y coordinate</precondition>
+		<precondition>b = height of sprite</precondition>
+	</routine>
+
+	<routine>
+		<name>display_safecopy</name>
+		<description>
+			<p>Copy the gbuf to the screen, guaranteed </p>
+		</description>
+		<author>WikiTi :)</author>
+		<author>Slightly modified for Vera by Tim Franssen (mail@timendus.com)</author>
+		<precondition>hl = pointer to graph buffer to be copied</precondition>
+		<postcondition>Graph buffer is copied to the screen, no matter the speed settings</postcondition>
+	</routine>
+
+	<routine>
+		<name>display_fastcopy</name>
+		<description>
+			<p>Copy the gbuf to the screen, fast </p>
+		</description>
+		<author>Joe Wingbermuehle for Ion</author>
+		<author>Slightly modified for Vera by Tim Franssen (mail@timendus.com)</author>
+		<precondition>hl = pointer to graph buffer to be copied</precondition>
+		<postcondition>Graph buffer is copied to the screen</postcondition>
+	</routine>
+
+	<routine>
+		<name>display_charcopy</name>
+		<description>
+			<p>Show a 6x8 pixel sprite on the screen at the current location. Deprecated; should be removed. </p>
+		</description>
+		<author>Tim Franssen (mail@timendus.com)</author>
+		<precondition>LCD driver should be in 6 bit mode or you'll get a 2px offset</precondition>
+		<precondition>hl = pointer to font data</precondition>
+		<postcondition>Character shown on display</postcondition>
+	</routine>
+
+</file>

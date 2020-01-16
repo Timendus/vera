@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="veradoc.xsl"?>
+
+<file>
+	<name>src/headers/headers.inc</name>
+	<description>
+		<p>Vera - the calc lover's OS, copyright (C) 2007 The Vera Development Team. </p>
+		<p>This file defines the Vera headers (RAM areas, static values, et cetera) </p>
+	</description>
+
+	<routine>
+		<name>SECS2CLOCKS</name>
+		<description>
+			<p>Convert seconds to clockticks </p>
+		</description>
+		<author>Tim Franssen (mail@timendus.com)</author>
+	</routine>
+
+	<routine>
+		<name>SECS2SLEEP</name>
+		<description>
+			<p>Convert seconds to clockticks/10.000 for sleep routine </p>
+		</description>
+		<author>Tim Franssen (mail@timendus.com)</author>
+		<example>
+			<line>	ld hl,SECS2SLEEP(30)</line>
+			<line>	call system_sleep</line>
+			<line>	; About 30 seconds have passed</line>
+		</example>
+	</routine>
+
+</file>

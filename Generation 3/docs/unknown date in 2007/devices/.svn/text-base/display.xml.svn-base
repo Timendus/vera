@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="veradoc.xsl"?>
+
+<file>
+	<name>src/devices/display.asm</name>
+	<description>
+		<p>Vera - the calc lover's OS, copyright (C) 2007 The Vera Development Team. </p>
+		<p>This file provides control over the display </p>
+	</description>
+
+	<routine>
+		<name>display_init</name>
+		<description>
+			<p>Reset the LCD display on OS boot </p>
+		</description>
+		<postcondition>LCD routines can safely be called</postcondition>
+	</routine>
+
+	<routine>
+		<name>display_lcd_delay</name>
+		<description>
+			<p>Wait for the LCD display to become ready </p>
+		</description>
+	</routine>
+
+	<routine>
+		<name>display_safecopy</name>
+		<description>
+			<p>Copy the gbuf to the screen, guaranteed </p>
+		</description>
+		<precondition>hl = pointer to graph buffer to be copied</precondition>
+		<postcondition>Graph buffer is copied to the screen, no matter the speed settings</postcondition>
+	</routine>
+
+	<routine>
+		<name>display_fastcopy</name>
+		<description>
+			<p>Copy the gbuf to the screen, fast </p>
+		</description>
+		<precondition>hl = pointer to graph buffer to be copied</precondition>
+		<postcondition>Graph buffer is copied to the screen</postcondition>
+	</routine>
+
+	<routine>
+		<name>display_charcopy</name>
+		<description>
+			<p>Show a 6x8 pixel sprite on the screen at the current location </p>
+		</description>
+		<precondition>LCD driver should be in 6 bit mode or you'll get a 2px offset</precondition>
+		<precondition>hl = pointer to font data</precondition>
+		<postcondition>Character shown on display</postcondition>
+	</routine>
+
+</file>

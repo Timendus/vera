@@ -1,0 +1,162 @@
+<html>
+
+	<head>
+		<title>Welcome</title>
+		<link type="text/css" rel="stylesheet" href="veradoc.css"/>
+	</head>
+	
+	<body>
+		<h1>Welcome to this documentation! - Asmdoc tool v1.4 release</h1>
+		
+		<p>The contents of this page are currently more or less a copy of the README file and can be changed by adapting or replacing the file welcome.html in the "root" directory of the layout directory.</p>
+		
+		<h2>Table of Contents</h2>
+		<ul>
+			<li><a href="#Asmdoc">Asmdoc</a></li>
+			<li><a href="#Example">Example assembly source</a></li>
+			<li><a href="#Usage">Usage</a></li>
+			<li><a href="#Todo">Todo list</a></li>
+			<li><a href="#Contact">Contact information</a></li>
+		</ul>
+		
+		<a name="Asmdoc"></a><h2>Asmdoc</h2>
+		<p>Asmdoc is a tool that generates good looking and easy to navigate documentation directly from your assembly source code. To do so it parses your assembly files and takes out all the metadata that you have added in your comments in accordance with the Vera Coding Standards.</p>
+		<p>See the Vera wiki for <a target="_blank" href="http://timendus.student.utwente.nl/~vera/wiki/index.php/Documentation_generators">more information about this program</a> or for a <a target="_blank" href="http://timendus.student.utwente.nl/~vera/wiki/index.php/Coding_standards">specification of the Vera Coding Standards</a>.</p>
+		
+		<a name="Example"></a><h2>Example assembly source</h2>
+		<h3>Source of test.asm</h3>
+		<pre>;; Vera - the calc lover's OS,
+;; copyright (C) 2007 The Vera Development Team.
+;; 
+;; This is a test assembly file to test the reference implementation
+;; asmdoc tool.
+;
+; This program is free software: you can redistribute it and/or modify
+; it under the terms of the GNU General Public License as published by
+; the Free Software Foundation, either version 3 of the License, or
+; (at your option) any later version.
+;
+; This program is distributed in the hope that it will be useful,
+; but WITHOUT ANY WARRANTY; without even the implied warranty of
+; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+; GNU General Public License for more details.
+; 
+; You should have received a copy of the GNU General Public License
+; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+; ===================
+; We'll put in a fake console routine here
+
+;; === console.printline ===
+;;
+;; Print a null terminated string to the display
+;; using some crappy display port writes
+;;
+;; Don't use it too often, it'll fry your screen :-)
+;;
+;; Authors:
+;;   John Doe (j.doe@mycompany.com)
+;;   The President (president@whitehouse.gov)
+;;
+;; Pre:
+;;   hl = pointer to string
+;;
+;; Post:
+;;   String displayed on screen
+;;   hl,bc,a destroyed
+;;
+;; SeeAlso:
+;;   console.putchar, console.set_cursor_x, console.set_cursor_y
+;;
+;; Warning:
+;;   Do not call this function if you have manually
+;;   set console_cursor_x or console_cursor_y outside
+;;   the console boundaries.
+;;
+;; Example:
+;;    	ld hl,str_welcome
+;;    	call console.printline
+;;    	ret
+;;   str_welcome:
+;;    	.db "Welcome to Vera",0
+
+console.printline:
+	ret
+
+;; === console.newline ===
+;;
+;; Print a newline to the console
+;;
+;; Post:
+;;   Updated cursor position, scrolled screen if necessary
+;;   hl,a destroyed
+;;
+;; SeeAlso:
+;;   console.printline, console.set_cursor_x, console.set_cursor_y
+;;
+;; Example:
+;;    	call console.newline
+;;
+;; Authors:
+;;   John Doe (j.doe@mycompany.com)
+;;   The President (president@whitehouse.gov)
+
+console.newline:
+	ret
+
+; === console.putchar ===
+;
+; Internally used routine, just one semicolon
+;
+; Pre:
+;   a = character
+;
+; Post:
+;   Character put on display
+;   hl,a destroyed
+;
+; SeeAlso:
+;   console.printline
+;
+; Example:
+;   	ld a,'F'
+;    	call console.putchar
+
+console.putchar:
+	ret
+
+; ===================
+; End of file
+; ===================
+</pre>
+		
+		<a name="Usage"></a><h2>Usage</h2>
+		<p>On your command prompt, run:
+		<h3>Console input</h3>
+		<pre>$ asmdoc file.asm file.xml</pre>
+		<p><br/>to parse the comments in one assembly file ("file.asm") and store them as XML data in another file ("file.xml"). Or run:</p>
+		<h3>Console input</h3>
+		<pre>$ asmdoc sourcedir docsdir [layoutdir]</pre>
+		<p><br/>to parse an entire directory ("sourcedir") of assembly files (*.asm and *.inc will be converted, others ignored), specifying a target directory ("docsdir") where the XML files should be stored.</p>
+		<p>Optionally, you can specify a lay-out directory where files are stored that you want automatically copied into the target directory. See the file "README" in the directory "layout" for more information on this.</p>
+		<p>To test this tool and get a look at it's output, you can parse test.asm (located in the directory example/src) as follows:</p>
+		<h3>Console input</h3>
+		<pre>$ asmdoc example/src/ example/docs/ example/layout/</pre>
+		<p><br/>Then open example/docs/index.html in any modern webbrowser to see the result. Make sure you issue this command from the directory where this README file is located though, or it will not be able to find the specified directories.</p>
+
+		<a name="Todo"></a><h2>Todo list</h2>
+		<ul>
+			<li>A lot more testing of the parser</li>
+			<li>Add file extentions to filenames to prevent .asm/.inc conflicts</li>
+			<li>Add routines.xml output and resulting alphabetic list</li>
+			<li>Add a bit more error checking on copying layout files</li>
+			<li>Perhaps fix the XML indenting in tree.xml</li>
+		</ul>
+		
+		<a name="Contact"></a><h2>Contact information</h2>
+		<p>You can contact the author of this tool at <a href="mailto:mail@timendus.com">mail@timendus.com</a></p>
+		<p/>
+
+	</body>
+
+</html>

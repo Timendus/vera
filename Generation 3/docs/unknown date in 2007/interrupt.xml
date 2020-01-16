@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="veradoc.xsl"?>
+
+<file>
+	<name>src/interrupt.asm</name>
+	<description>
+		<p>Vera - the calc lover's OS, copyright (C) 2007 The Vera Development Team. </p>
+		<p>This file provides control over the interrupt service routine and the hardware that controls it. </p>
+		<p>Applications can register callbacks for the different kinds of interrupts, but no more than one at a time. This shouldn't be a problem as we will not be running more than one application at a time either. </p>
+		<p>Keep in mind that the kernel shouldn't be using this mechanism, but hardcode it's callbacks in this file. Otherwise applications will overwrite the kernel callbacks. Clear all application specific callback handlers </p>
+	</description>
+
+	<routine>
+		<name>interrupt_init</name>
+		<description>
+			<p>Initialize the default ISR on OS boot </p>
+		</description>
+		<author>Tim Franssen (mail@timendus.com)</author>
+		<postcondition>Default interrupt handler is running at about 110Hz</postcondition>
+		<postcondition>Default interrupt handler responds to ON key</postcondition>
+	</routine>
+
+	<routine>
+		<name>interrupt_setmasks</name>
+		<description>
+			<p>Acknowledge interrupts, enable ON key and first timer interrupt and set first timer interrupt speed </p>
+		</description>
+		<author>WikiTi :)</author>
+	</routine>
+
+	<routine>
+		<name>interrupt_clear_handlers</name>
+		<author>Tim Franssen (mail@timendus.com)</author>
+	</routine>
+
+	<routine>
+		<name>interrupt_register_timerhandler</name>
+		<description>
+			<p>Register a callback handler for the timer interrupt </p>
+		</description>
+		<precondition>hl = pointer to handler routine ($0000 to clear)</precondition>
+		<author>Tim Franssen (mail@timendus.com)</author>
+	</routine>
+
+	<routine>
+		<name>interrupt_register_poweroffhandler</name>
+		<description>
+			<p>Register a callback handler for power off </p>
+		</description>
+		<precondition>hl = pointer to handler routine ($0000 to clear)</precondition>
+		<author>Tim Franssen (mail@timendus.com)</author>
+	</routine>
+
+	<routine>
+		<name>interrupt_register_poweronhandler</name>
+		<description>
+			<p>Register a callback handler for power on </p>
+		</description>
+		<precondition>hl = pointer to handler routine ($0000 to clear)</precondition>
+		<author>Tim Franssen (mail@timendus.com)</author>
+	</routine>
+
+	<routine>
+		<name>interrupt_register_linkhandler</name>
+		<description>
+			<p>Register a callback handler for the link interrupt </p>
+		</description>
+		<precondition>hl = pointer to handler routine ($0000 to clear)</precondition>
+		<author>Tim Franssen (mail@timendus.com)</author>
+	</routine>
+
+	<routine>
+		<name>interrupt_register_break</name>
+		<description>
+			<p>Register a callback handler for killing an application </p>
+		</description>
+		<precondition>hl = pointer to handler routine ($0000 to clear)</precondition>
+		<author>Tim Franssen (mail@timendus.com)</author>
+	</routine>
+
+</file>

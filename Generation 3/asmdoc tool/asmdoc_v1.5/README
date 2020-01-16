@@ -1,0 +1,53 @@
+=========================== Asmdoc tool v1.5 ==========================
+
+=== Asmdoc ===
+
+Asmdoc is a tool that generates good looking and easy to navigate 
+documentation directly from your assembly source code. To do so it
+parses your assembly files and takes out all the metadata that you have
+added in your comments in accordance with the Vera Coding Standards.
+
+See "http://timendus.student.utwente.nl/~vera/wiki/
+index.php/Documentation_generators" for more information about this
+program or "http://timendus.student.utwente.nl/~vera/wiki/index.php/
+Coding_standards" for a specification of the Vera Coding Standards.
+
+=== Usage ===
+
+On your command prompt, run:
+
+$ asmdoc file.asm file.xml
+
+to parse the comments in one assembly file ("file.asm") and store them
+as XML data in another file ("file.xml"). Or run:
+
+$ asmdoc sourcedir docsdir [layoutdir]
+
+to parse an entire directory ("sourcedir") of assembly files (*.asm and
+*.inc will be converted, others ignored), specifying a target directory
+("docsdir") where the XML files should be stored.
+
+Optionally, you can specify a lay-out directory where files are stored
+that you want automatically copied into the target directory. See the
+file "README" in the directory "layout" for more information on this.
+
+To test this tool and get a look at it's output, you can parse test.asm
+(located in the directory example/src) as follows:
+
+$ asmdoc example/src/ example/docs/ example/layout/
+
+Then open example/docs/index.html in any modern webbrowser to see the
+result. Make sure you issue this command from the directory where this
+README file is located though, or it will not be able to find the 
+specified directories.
+
+=== Todo list ===
+
+- Add file extentions to filenames to prevent .asm/.inc conflicts
+- Add a bit more error checking on copying layout files
+- Perhaps fix the XML indenting in tree.xml
+
+=== Contact ===
+
+You can contact the author of this tool at mail@timendus.com
+

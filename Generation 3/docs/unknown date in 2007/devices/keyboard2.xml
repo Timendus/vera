@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="veradoc.xsl"?>
+
+<file>
+	<name>src/devices/keyboard2.asm</name>
+	<description>
+		<p>Vera - the calc lover's OS, Copyright (C) 2007 The Vera Development Team. </p>
+		<p>File keyboard.inc Provides interaction with the keyboard </p>
+	</description>
+
+	<routine>
+		<name>keyboard_init</name>
+		<description>
+			<p>Initializes the use of this library. </p>
+		</description>
+		<author>Dries Guldolf</author>
+		<postcondition>Keyboard hardware and variables are initialized</postcondition>
+		<postcondition>Destroys af</postcondition>
+		<warning>
+			<p>Call this routine before using any others. Though it's not that important. </p>
+		</warning>
+	</routine>
+
+	<routine>
+		<name>keyboard_scan</name>
+		<description>
+			<p>Scans the keyboard for any pressed keys. This routine keeps returning the keycode as long as you press a button. </p>
+		</description>
+		<author>Dries Guldolf</author>
+		<postcondition>a = keycode of key pressed (if multiple keys are pressed only the smallest keycode is detected)</postcondition>
+		<postcondition>z-flag = set if no key is pressed</postcondition>
+		<postcondition>Destroys all other flags</postcondition>
+		<seealso>keyboard_getk</seealso>
+		<example>
+			<line>loop:</line>
+			<line>	call keyboard_scan</line>
+			<line>	; If no key is pressed, loop</line>
+			<line>	jr z, loop</line>
+			<line>	; Use CP's to check which key is pressed</line>
+			<line>	cp skleft</line>
+			<line>	jp z, pressingleft</line>
+			<line>	; Check the keys again</line>
+			<line>	jr loop</line>
+		</example>
+	</routine>
+
+	<routine>
+		<name>keyboard_getk</name>
+		<description>
+			<p>Scans the keyboard for any pressed keys. A keycode will only be returned once, you will have to release and press the key again for it to be recognized again. </p>
+		</description>
+		<author>Dries Guldolf</author>
+		<postcondition>a = keycode of key pressed (if multiple keys are pressed only the smallest keycode is detected)</postcondition>
+		<postcondition>Destroys flags</postcondition>
+		<postcondition>(lastkey) = result of calling keyboard_scan</postcondition>
+		<seealso>keyboard_scan</seealso>
+		<seealso>keyboard_repkeys</seealso>
+		<warning>
+			<p>You may want to call this routine before using it to make sure (lastkey) is properly initialized. </p>
+		</warning>
+		<example>
+			<line>	; Do an extra call to be sure (lastkey) is valid</line>
+			<line>	call keyboard_getk</line>
+			<line>loop:</line>
+			<line>	call keyboard_getk</line>
+			<line>	; If no key is pressed, loop</line>
+			<line>	or a</line>
+			<line>	jr z, loop</line>
+			<line>	; Use CP's to check which key is pressed</line>
+			<line>	cp skenter</line>
+			<line>	jp z, enterpressed</line>
+			<line>	; Check the keys again</line>
+			<line>	jr loop</line>
+		</example>
+	</routine>
+
+	<routine>
+		<name>keyboard_waitup</name>
+		<description>
+			<p>Simply waits for all keys to be released. </p>
+		</description>
+		<author>Tim Franssen</author>
+		<author>Optimized by Dries Guldolf</author>
+		<postcondition>Pause until all keys are released</postcondition>
+		<warning>
+			<p>If no keys are pressed, this routine will immediately return. </p>
+		</warning>
+		<seealso>keyboard_waitkey</seealso>
+	</routine>
+
+	<routine>
+		<name>keyboard_waitkey</name>
+		<description>
+			<p>Waits for a key to be pressed </p>
+		</description>
+		<author>Dries Guldolf</author>
+		<postcondition>a = keycode of pressed key</postcondition>
+		<postcondition>Destroys flags</postcondition>
+		<seealso>keyboard_waitup</seealso>
+	</routine>
+
+	<routine>
+		<name>keyboard_repkeys</name>
+		<description>
+			<p>Allows keys to repeat. Call this routine on a regular basis (or from the isr). First time delay is double as long as time between other repeats. </p>
+		</description>
+		<author>Dries Guldolf</author>
+		<precondition>(keydelay) = How long before keys should be redetected. All but the first repeat are half this time.</precondition>
+		<postcondition>(keytimer) = If zero, this is reset to (keydelay) or (keydelay)/2</postcondition>
+		<postcondition>(lastkey) = If (keytimer) hits zero then this variable is cleared.</postcondition>
+		<postcondition>Destroys af and hl</postcondition>
+		<warning>
+			<p>The larger (keydelay) is the slower keys will be repeated. </p>
+		</warning>
+		<example>
+			<line>	; Using it in with HALTs forces some regular timing.</line>
+			<line>loop:</line>
+			<line>	ei</line>
+			<line>	halt</line>
+			<line>	call keyboard_repkeys</line>
+			<line>	call keyboard_getk</line>
+			<line>	or a</line>
+			<line>	jr z, loop</line>
+			<line>	; Put code to check which keys are pressed here</line>
+		</example>
+	</routine>
+
+</file>

@@ -1,0 +1,119 @@
+	Vera Subroutines
+
+1 	display routines:
+1.1	screen
+
+1.1.1	PrintMap
+Prints a map on the screen at the position pointed by HP & VP.
+The map is 8 bytes and hl points to the first byte.
+   bit 7 6 5 4 3 2 1 0
+byte 1 * * x x x x x x
+byte 2 * * x x x x x x
+byte 3 * * x x x x x x
+byte 4 * * x x x x x x
+byte 5 * * x x x x x x
+byte 6 * * x x x x x x
+byte 7 * * x x x x x x
+byte 8 * * x x x x x x
+* = doesn't matter
+x = either 1=on or 0=off for a pixel 
+
+1.1.2	PrintCharacter
+Prints a character from the vera font at the position pointed by HP & VP.
+The vera font character code must be loaded in a.
+This routine updates HP & VP and scrolls one line up if HP = 15 and VP = 6.
+
+1.1.3	PrintString
+Prints a string of a unknow lengt to the screen at starting at HP & VP.
+HP & VP are updated and there will be scrolled if neccesary.
+The string consist of vera font character codes and is ended by a $FF byte.
+	.asc	"Example string|"
+The "|" is defined as the .asc value for $FF in the include file.
+
+1.1.4	PrintScreen
+This routine prints the vera font character codes,
+form the memory lovation screen on the lcd.
+
+1.2	graphic
+
+
+2	input routines:
+
+2.1	GetButton
+This routine checks if a Button is pressed on the keyboard.
+If none $FF is returned in a, otherwise a button code.
+button codes are:
++--------------------------+
+| TI 83+ VE                |
+| +----------------------+ |
+| |                      | |
+| |                      | |
+| |                      | |
+| |                      | |
+| |                      | |
+| |                      | |
+| |                      | |
+| |                      | |
+| |                      | |
+| +----------------------+ |
+|                          |
+| [35] [34] [33] [32] [31] |
+|                          |
+|                   [04]   |
+| [36] [37] [38] [02]  [03]|
+| [30] [28] [20]    [01]   |
+| [2F] [27] [1F] [17] [0F] |
+| [2E] [26] [1E] [16] [0E] |
+| [2D] [25] [1D] [15] [0D] |
+| [2C] (24) (1C) (14) [0C] |
+| [2B] (23) (1B) (13) [0B] |
+| [2A] (22) (1A) (12) [0A] |
+| [  ] (21) (19) (11) [09] |
+|                          |
++--------------------------+
+Note that this routine only watches if a button is pressed.
+If it isn't released it still gives the button code.
+
+3	memory routines:
+
+4	linking routines:
+
+5	other routines:
+
+5.1	delay
+Gives a short delay.
+	wait
+is probalby faster then
+	call	delay
+but uses the same routines, except that it uses rst $08.
+
+5.2	Menu
+Makes the user choose what to do.
+Call with hl pointing to the start of a menu with up to 256 options.
+Menus can be defined like this.
+MenuLabel:
+	.asc	"||Menu Title|"
+	.asc	"The fist option|"
+	call	FirstOptionSubroutine
+	.asc	"Another option|"
+	call	ThatOtherOption
+	.asc	"And the last one|"
+	call	LastOption
+	.asc	"|"
+Make sure hl points to MenuLabel.
+Then call menu and the calc will call the routine defined under the string.
+A menu is just:
+As title:	
+	-2 $FF bytes
+	-a up to 16 bytes long title for the menu
+	-1 $FF byte
+For all options:
+	-a $FF ended string from up to 16 characters
+	-3 bytes that must be executed if the user chooses the option string defined above.
+And zum schluss:
+	-a $FF byte
+Note that the 3 bytes most likly are a call or a jump.
+But can also be anything else.
+By the way, it looks like a jp is even faster than a call.
+You can jp to a subroutine and simple go back to your code with a ret.
+This is not the logical way but it works, altrhough the code would probalby become unlogic. 

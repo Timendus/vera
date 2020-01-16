@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="veradoc.xsl"?>
+
+<file>
+	<name>src/system.asm</name>
+	<description>
+		<p>Vera - the calc lover's OS, copyright (C) 2007 The Vera Development Team. </p>
+		<p>This file handles things that have to do with the CPU, and provides a few useful routines. </p>
+	</description>
+
+	<routine>
+		<name>system_init</name>
+		<description>
+			<p>Configures the memory layout on OS boot and initializes the random number generator seed. </p>
+		</description>
+		<author>Tim Franssen (mail@timendus.com)</author>
+	</routine>
+
+	<routine>
+		<name>system_soft_power_down</name>
+		<description>
+			<p>Goes into low power mode, like Ti-OS's APD, will return when calculator has been turned on again </p>
+			<p>TODO: add display backup to saferam </p>
+		</description>
+		<author>WikiTi :)</author>
+	</routine>
+
+	<routine>
+		<name>system_random</name>
+		<description>
+			<p>Generate a pseudo random number between 0 and 255 </p>
+		</description>
+		<author>Joe Wingbermuehle for Ion</author>
+		<author>Adapted slightly for Vera by Tim Franssen (mail@timendus.com)</author>
+		<postcondition>a = random number between 0 and 255 inclusive</postcondition>
+	</routine>
+
+	<routine>
+		<name>system_sleep</name>
+		<description>
+			<p>Sleep for hl * 10.000 + 69 clockcycles </p>
+		</description>
+		<author>Tim Franssen (mail@timendus.com)</author>
+		<precondition>hl = number of clockcycles / 10.000 to sleep</precondition>
+		<example>
+			<line>	ld hl,SECS2SLEEP(30)</line>
+			<line>	call system_sleep</line>
+			<line>	; About 30 seconds have passed</line>
+		</example>
+	</routine>
+
+</file>
