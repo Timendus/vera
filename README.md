@@ -76,9 +76,9 @@ made quick work of those plans.
 Being in university and studying computer science, I started this project with
 documentation and testing in mind. So a tool was written (taking ideas from
 JavaDoc) to generate HTML documentation from comments in the assembly source
-files. The tool (although pretty crappy) has survived and [can be found here](Generation 3/asmdoc tool).
+files. The tool (although pretty crappy) has survived and [can be found here](Generation%203/asmdoc%20tool).
 Also, we have two versions of the generated documentation website, that can be
-seen in the [docs directory](Generation 3/docs). The screenshot above shows
+seen in the [docs directory](Generation%203/docs). The screenshot above shows
 several "tests" that had been implemented. How very rigorous of young me 😄
 
 The actual Vera source is a different story though. The code was hosted in an
