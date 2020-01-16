@@ -85,8 +85,9 @@ files. The tool (although pretty crappy) has survived and [can be found here](Ge
 Also, we have two versions of the generated documentation website, that can be
 seen in the [docs directory](Generation%203/docs). The latest version can also
 be [browsed through online](http://www.timfranssen.nl/vera/asmdoc/). The
-screenshot above shows several "tests" that had been implemented. How very
-rigorous of young me 😄
+screenshot above shows several "tests" that had been implemented, but there was
+also a pretty serious effort under way of writing a suite of automated tests.
+How very rigorous of young me 😄
 
 The actual Vera source is a different story though. The code was hosted in an
 SVN repository that was on my private server. Somehow I can't find the code on
